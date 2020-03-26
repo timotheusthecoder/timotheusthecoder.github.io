@@ -1,0 +1,62 @@
+<div class="page-header row">
+  <div class="col-md-9">
+    <h1>Mastermind</h1>
+    <small>Single player VS CPU</small>
+  </div>
+  <div class="nav col-md-3 pull-right">
+    <a href="https://bitbucket.org/thunderc0der/mastermind" class="fa fa-bitbucket fa-3x" title="source code at bitbucket"></a>
+    <a href="../" class="fa fa-flask fa-3x" title="More Experiments"></a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3>Object</h3>
+    <p>Duplicate the exact color and position of your opponent's hidden pegs in the least number of moves</p>
+    <h3>How to Play</h3>
+    <p>A secret code is selected by your opponent, the codemaker, using any combination of 6 colored code pegs:</p>
+    <ul class="inline">
+      <li ng-repeat="color in availableColors"><span class="peg-tny {{color}}-peg" title="{{color}}"></span></li>
+    </ul>
+    <p>You have 10 chances to guess the secret code. After each guess, you are given feedback in the form of key pegs to the right.</p>
+    <div class="bordered">
+      <p><strong>Black key peg:</strong> A code peg is the correct color and in the correct spot</p>
+      <p><strong>White key peg:</strong> A code peg is the correct color, but in the incorrect spot</p>
+    </div>
+  </div>
+
+  <div class="col-md-8 game-board">
+
+    <div class="secret-zone pull-left">
+      <ul class="secret code">
+        <li ng-repeat="peg in secretPegs track by $index">
+          <span class="peg {{peg.color}}-peg glossy"></span>
+        </li>
+      </ul>
+      <div class="secret-overlay" ng-show="correctPegs<4 && currentAttempt>=0">[ super secret code ]</div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="pull-left attempt-status">
+      <p>Attempt:</p>
+      <h4>{{attempts.length}} of 10</h4>
+    </div>
+
+    <button type="button" class="btn btn-primary pull-right" ng-click="reset()">new game</button>
+
+    <div ng-class="['attempts', correctPegs==4 ? 'disabled' : '']">
+      <attemptit></attemptit>
+      <div class="clear"></div>
+      <div class="overlay" ng-show="correctPegs==4 || currentAttempt<0">
+        <div class="game-result">
+          <span ng-show="correctPegs==4">
+            You win!!!
+          </span>
+          <span ng-show="attempts.length==10 && currentAttempt<0">
+            You lose!!!
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+  <div ng-class="['attempt', $index==currentAttempt && correctPegs<4 ? 'active' : '']" ng-repeat="attempt in attempts track by $index">
+    <ul class="code">
+      <li ng-repeat="peg in attempt.pegs track by $index" ng-click="switchColor($index, peg)" ng-disabled="true">
+        <span class="peg {{peg.color}}-peg"></span>
+      </li>
+    </ul>
+    <ul class="results">
+      <li ng-repeat="result in attempt.results track by $index">
+        <span class="peg-tny {{result.color}}-peg"></span>
+      </li>
+    </ul>
+    <button type="button" class="btn btn-primary btn-xs" ng-click="validateGuess($index)">go</button>
+    <div class="clear"></div>
+    <div class="overlay"></div>
+  </div>
